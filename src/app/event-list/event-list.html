@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8">
+      @for (event of events(); track event.id) {
+        @if(event.nbPlaces>0){<div class="card" style="width: 18rem"> -->
+           <img [src]="event.imageUrl" class="card-img-top" alt="..." />
+          <div class="card-body">
+           
+              <h5 class="card-title"  [class.color]="isHighlighted(event.category)">{{ event.titre | uppercase }}</h5>
+            
+            <p class="card-text" style="color: blue;font-size:larger;" >{{ event.category | lowercase }}</p>
+            <p class="card-text">{{ event.date|date:"dd-MM-yyyy" }}</p>
+
+            <a href="#" class="btn btn-primary">Details</a>
+          </div>
+
+          <button (click)="incrementerLikes(event)">Like</button>
+          <span>{{ event.nbLikes }}</span>
+        </div>}
+      } @empty {
+        <p>No events available.</p>
+      }
+    </div>
+  </div>
+</div>
