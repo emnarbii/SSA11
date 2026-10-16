@@ -1,30 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Event } from '../models/Event';
-import { CommonModule } from '@angular/common';
 
-@Component({
-  selector: 'app-event-list',
-  imports: [CommonModule],
-  templateUrl: './event-list.html',
-  styleUrl: './event-list.css',
+@Injectable({
+  providedIn: 'root',
 })
-export class EventList {
-
-title="liste des événements"
-  titre=signal("Liste des événements")
-
-  constructor(){
-    this.title="liste"
-    this.titre.set("event List")
-    
-  }
-
-
-
-
-
-
-  events=signal<Event[]>([
+export class EventServices {
+  events = signal<Event[]>([
     {
       id: 1,
       titre: 'Angular Workshops',
@@ -33,8 +14,8 @@ title="liste des événements"
       lieu: 'Tunis',
       prix: 50,
       imageUrl: 'images/even1.jpg',
-      nbPlaces: 0,
-      category:'Technologie',
+      nbPlaces: 100,
+      category: 'Technologie',
       nbLikes: 0,
     },
     {
@@ -69,20 +50,17 @@ title="liste des événements"
       lieu: 'Tunis',
       prix: 30,
       imageUrl: 'images/event.jpg',
-      nbPlaces: 0,
+      nbPlaces: 10,
       category: 'Business',
       nbLikes: 0,
     },
-  ])
+  ]);
 
-  incrementerLikes(event: any) {
-    event.nbLikes++;
+  getList() {
+    return this.events;
   }
 
-
-  isHighlighted(category:string):boolean{
-  if(category==="Technologie")
-    return true;
-  return false
+  getById(id: number) {
+    return this.events().filter((event) => event.id === id)[0];
   }
 }

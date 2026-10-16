@@ -10,8 +10,10 @@
             
             <p class="card-text" style="color: blue;font-size:larger;" >{{ event.category | lowercase }}</p>
             <p class="card-text">{{ event.date|date:"dd-MM-yyyy" }}</p>
-
-            <a href="#" class="btn btn-primary">Details</a>
+            <!-- avec interpolation -->
+            <!-- <a routerLink="/events/{{event.id}}" class="btn btn-primary">Details</a> -->
+          <!-- avec property binding -->
+          <a [routerLink]="['/events/',event.id]" class="btn btn-primary">Details</a>
           </div>
 
           <button (click)="incrementerLikes(event)">Like</button>
