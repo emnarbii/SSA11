@@ -18,12 +18,12 @@ export class EventServices {
     return this.http.get<Event>(`${this.uri}/${id}`);
   }
 
-  addEvent(event: Omit<Event, "id">) {
+  addEvent(event: Omit<Event, 'id'>) {
     return this.http.post<Event>(this.uri, event);
   }
 
-  update(event: Event) {
-    return this.http.put<Event>(`${this.uri}/${event.id}`, event);
+  update(id: number, event: Event) {
+    return this.http.put<Event>(`${this.uri}/${id}`, event);
   }
 
   delete(id: number) {

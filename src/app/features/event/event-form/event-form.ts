@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, input, numberAttribute } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -18,36 +18,29 @@ import { Router } from '@angular/router';
   styleUrl: './event-form.css',
 })
 export class EventForm {
+  service = inject(EventServices);
+  router = inject(Router);
+  id = input.required({ transform: numberAttribute });
 
-  service=inject(EventServices);
-  router=inject(Router);
   title = new FormControl('', Validators.required);
   lieu = new FormControl('', Validators.required);
   eventForm!: FormGroup;
   eventFBuilder!: FormGroup;
 
-  categories:string[]=[
-    "conf",
-    "seminaire",
-    "reunion",
-    "autre"
-  ]
+  categories: string[] = ['conf', 'seminaire', 'reunion', 'autre'];
 
   fb = inject(FormBuilder);
   constructor() {
     // avec form group
     this.eventForm = new FormGroup({
-      titre: new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-      ]),
+      titre: new FormControl('', [Validators.required, Validators.minLength(3)]),
       description: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      date: new FormControl('' ),
-      lieu: new FormControl('' ),
+      date: new FormControl(''),
+      lieu: new FormControl(''),
       prix: new FormControl(''),
       imageUrl: new FormControl('images/event.jpg'),
       nbPlaces: new FormControl(''),
-      category: new FormControl('', ),
+      category: new FormControl(''),
       nbLikes: new FormControl('0'),
     });
 
@@ -63,17 +56,38 @@ export class EventForm {
       category: ['', Validators.required],
       nbLikes: ['0'],
     });
+
+    //est exécuté si id existe
+    effect(() => {
+      const id = this.id();
+      if (id !== undefined) {
+        this.service.getById(id).subscribe((event) => {
+          // remplir le formulaire directement avec les valeurs de l'event
+          this.eventForm.patchValue(event);
+        });
+      }
+    });
   }
 
-  ngOnInit(){
-    console.log(this.eventForm)
+  ngOnInit() {
+    console.log(this.eventForm);
   }
 
-  get titre(){
+  get titre() {
     return this.eventForm.get('titre');
   }
 
-  submit(){
-    return this.service.addEvent(this.eventForm.value).subscribe(()=>this.router.navigate(['/events',]))
+  submit() {
+    // si id existe on fait l'update
+    if (this.id()) {
+      return this.service
+        .update(this.id(), this.eventForm.value)
+        .subscribe(() => this.router.navigate(['/events']));
+    } else {
+      //si non on fait l'ajout
+      return this.service
+        .addEvent(this.eventForm.value)
+        .subscribe(() => this.router.navigate(['/events']));
+    }
   }
 }

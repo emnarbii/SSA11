@@ -10,6 +10,10 @@ export const event_routes: Routes = [
     loadComponent: () => import('./event-form/event-form').then((m) => m.EventForm),
   },
   {
+    path: 'update/:id',
+    loadComponent: () => import('./event-form/event-form').then((m) => m.EventForm),
+  },
+  {
     path: ':id',
     loadComponent: () => import('./event-details/event-details').then((m) => m.EventDetails),
   },
