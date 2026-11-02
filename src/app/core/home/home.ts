@@ -4,7 +4,7 @@ import { EventList } from '../../features/event/event-list/event-list';
 
 @Component({
   selector: 'app-home',
-  imports: [FormsModule, EventList],
+  imports: [EventList, FormsModule],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })

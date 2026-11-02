@@ -1,0 +1,40 @@
+{
+  "events": [
+    {
+      "id": "1",
+      "titre": " event1",
+      "description": " event1",
+      "date": "22-10-2027",
+      "lieu": "event1 ",
+      "prix": 10,
+      "imageUrl": " images/event.png",
+      "nbPlaces": 10,
+      "category": "conf ",
+      "nbLikes": 10
+    },
+    {
+      "id": "2",
+      "titre": " event1",
+      "description": " event1",
+      "date": "22-10-2027",
+      "lieu": "event1 ",
+      "prix": 10,
+      "imageUrl": " images/event.png",
+      "nbPlaces": 10,
+      "category": "conf ",
+      "nbLikes": 10
+    },
+    {
+      "id": "bc7d",
+      "titre": "avvvvvvvvvvvvvvvvvvvv",
+      "description": "testttttt",
+      "date": "2026-10-31",
+      "lieu": "ariana",
+      "prix": "12",
+      "imageUrl": "images/event.jpg",
+      "nbPlaces": "12",
+      "category": "conf",
+      "nbLikes": "0"
+    }
+  ]
+}

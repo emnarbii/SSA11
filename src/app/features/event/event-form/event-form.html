@@ -1,0 +1,113 @@
+<div class="container">
+  <div class="row">
+    <!-- title -->
+
+    <form [formGroup]="eventForm">
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Titre</label>
+        <input
+          type="titre"
+          class="form-control"
+          id="exampleFormControlInput1"
+          formControlName="titre"
+        />
+      </div>
+      @if (eventForm.controls['titre'].invalid && eventForm.controls['titre'].touched) {
+        <div>
+          @if (titre?.errors?.['required']) {
+            <span style="color: red;">titre obligatoire</span>
+          }
+          @if (eventForm.get('titre')?.errors?.['minlength']) {
+            <span>au min 3 caractères</span>
+          }
+        </div>
+      }
+      <!-- description -->
+      <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+        <textarea
+          class="form-control"
+          id="exampleFormControlTextarea1"
+          rows="3"
+          formControlName="description"
+        ></textarea>
+      </div>
+      @if (eventForm.controls['description'].invalid && eventForm.controls['description'].touched) {
+        <div>
+          @if (eventForm.get('description')?.errors?.['required']) {
+            <span>description obligatoire</span>
+          }
+          @if (eventForm.get('description')?.errors?.['maxlength']) {
+            <span>au max 25 caractères</span>
+          }
+        </div>
+      }
+      <!-- categoy -->
+
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">category</label>
+        <select  formControlName="category">
+          <option value="">choisir une categorie</option>
+          @for (c of categories; track c) {
+            <option [value]="c">{{ c }}</option>
+          }
+        </select>
+      </div>
+      <!-- Date -->
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Date</label>
+        <input
+          type="date"
+          class="form-control"
+          id="exampleFormControlInput1"
+          formControlName="date"
+        />
+      </div>
+
+      <!-- lieu -->
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Lieu</label>
+        <input
+          type="titre"
+          class="form-control"
+          id="exampleFormControlInput1"
+          formControlName="lieu"
+        />
+      </div>
+      <!-- prix -->
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Prix</label>
+        <input
+          type="titre"
+          class="form-control"
+          id="exampleFormControlInput1"
+          formControlName="prix"
+        />
+      </div>
+      <!-- nbre de place -->
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Nbre de places</label>
+        <input
+          type="titre"
+          class="form-control"
+          id="exampleFormControlInput1"
+          formControlName="nbPlaces"
+        />
+      </div>
+
+      <!-- image -->
+
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">image</label>
+        <input
+          type="text"
+          class="form-control"
+          id="exampleFormControlInput1"
+          formControlName="imageUrl"
+        />
+      </div>
+
+      <button  [disabled]="eventForm.invalid" (click)="submit()">ajouter</button>
+    </form>
+  </div>
+</div>
